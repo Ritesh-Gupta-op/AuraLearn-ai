@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1A2540" />
+    <meta name="description" content="Physical Kiss-Cut Sticker Sheet curriculum for adaptive learning. IRT driven, offline-first PWA." />
+    <title>Adaptive Learning - Kiss-Cut Curriculum</title>
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/src/workers/service-worker.js').then(
+            (registration) => { console.log('PWA ServiceWorker registered:', registration.scope); },
+            (err) => { console.log('ServiceWorker registration failed:', err); }
+          );
+        });
+      }
+    </script>
+  </body>
+</html>

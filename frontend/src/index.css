@@ -1,0 +1,188 @@
+/* Physical Kiss-Cut Sticker Material System Design System */
+:root {
+  --color-ground: #f3c9d5;      /* Blush pink ground */
+  --color-navy: #1A2540;        /* Deep navy ink */
+  --color-crimson: #cc2b3f;     /* Crimson accent */
+  --color-cream: #f2e9db;       /* Cream backing paper */
+  --color-hatch: #EF9CC0;       /* Blossom pink hatch peel shadow */
+  --font-headline: 'League Spartan', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-ground);
+  color: var(--color-navy);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
+  font-weight: 800;
+  color: var(--color-navy);
+}
+
+/* Kiss-cut dashed die-cut container */
+.sticker-die-cut {
+  position: relative;
+  padding: 6px;
+  border: 2px dashed var(--color-navy);
+  border-radius: 20px;
+  display: inline-block;
+  background-color: transparent;
+}
+
+/* Material State 1: Intact Sticker Badges */
+.sticker-badge {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  user-select: none;
+}
+
+/* Colorway A: Crimson Filled with Cream Print */
+.sticker-crimson {
+  background-color: var(--color-crimson);
+  color: var(--color-cream);
+}
+.sticker-crimson .sticker-icon,
+.sticker-crimson .sticker-num {
+  color: var(--color-cream);
+}
+
+/* Colorway B: Cream Tint with Crimson Print & 2px Crimson Ring */
+.sticker-cream {
+  background-color: var(--color-cream);
+  color: var(--color-crimson);
+  border: 2px solid var(--color-crimson);
+}
+.sticker-cream .sticker-icon,
+.sticker-cream .sticker-num {
+  color: var(--color-crimson);
+}
+
+/* Material State 2: Lifted Corner Peel Invitation */
+.lifted-corner-wrapper {
+  position: relative;
+  overflow: visible;
+}
+
+.lifted-fold {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, transparent 50%, var(--color-cream) 50%);
+  border-top-left-radius: 4px;
+  box-shadow: -2px -2px 4px rgba(26, 37, 64, 0.25);
+  z-index: 5;
+}
+
+.peel-hatch-shadow {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 40px;
+  height: 40px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--color-hatch),
+    var(--color-hatch) 4px,
+    var(--color-ground) 4px,
+    var(--color-ground) 8px
+  );
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Material State 3: Empty Dated Well (Finished Module) */
+.empty-well {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  padding: 16px;
+  border: 2px dashed var(--color-hatch);
+  background-color: rgba(239, 156, 192, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: var(--color-navy);
+}
+
+.empty-well .well-num {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-hatch);
+}
+
+.empty-well .well-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-navy);
+}
+
+.empty-well .well-peeled {
+  font-size: 0.75rem;
+  color: var(--color-navy);
+  opacity: 0.8;
+}
+
+/* Backing Paper Card Container */
+.cream-sheet-card {
+  background-color: var(--color-cream);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 12px 32px rgba(26, 37, 64, 0.12);
+}
+
+/* CTA Pill Button */
+.crimson-pill-btn {
+  background-color: var(--color-crimson);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.crimson-pill-btn:hover {
+  transform: translateY(-2px);
+  background-color: #b32435;
+}
+
+/* Grid Layouts */
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .curriculum-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
