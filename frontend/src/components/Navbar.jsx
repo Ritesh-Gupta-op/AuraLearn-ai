@@ -1,78 +1,89 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { LogOut, GraduationCap, Menu, X } from 'lucide-react';
 
-export const Navbar = ({ activeTab, setActiveTab }) => {
+export default function Navbar() {
+  const { currentUser, userProfile, signOut } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+
+  const isLanding = location.pathname === '/';
+  const isAuth    = location.pathname === '/auth';
+
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    try {
+      await signOut();
+      navigate('/');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSigningOut(false);
+    }
+  };
+
+  const avatarInitial = userProfile?.displayName?.[0]?.toUpperCase() || '?';
+
   return (
-    <nav
-      style={{
-        display: 'flex',
-        justify: 'space-between',
-        alignItems: 'center',
-        padding: '20px 40px',
-        maxWidth: '1200px',
-        margin: '0 auto'
-      }}
-    >
-      {/* Wordmark Left */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer' }} onClick={() => setActiveTab('landing')}>
-        <div
-          style={{
-            width: '36px',
-            height: '36px',
-            borderRadius: '10px',
-            backgroundColor: '#cc2b3f',
-            color: '#f2e9db',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontFamily: 'League Spartan',
-            fontWeight: 800,
-            fontSize: '1.2rem',
-            border: '2px dashed #1A2540'
-          }}
-        >
-          K
-        </div>
-        <span style={{ fontFamily: 'League Spartan', fontSize: '1.4rem', fontWeight: 800, color: '#1A2540' }}>
-          Kiss-Cut Curriculum
-        </span>
+    <nav className="navbar">
+      {/* Logo */}
+      <div className="nav-logo" onClick={() => navigate('/')}>
+        <div className="nav-logo-mark">E</div>
+        <span className="nav-logo-text">EduAI</span>
       </div>
 
-      {/* Navigation & Crimson Enroll Pill Right */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <button
-          onClick={() => setActiveTab('quiz')}
-          style={{
-            background: activeTab === 'quiz' ? '#1A2540' : 'transparent',
-            color: activeTab === 'quiz' ? '#f2e9db' : '#1A2540',
-            border: '2px solid #1A2540',
-            borderRadius: '9999px',
-            padding: '8px 18px',
-            fontWeight: 600,
-            cursor: 'pointer'
-          }}
-        >
-          Student Quiz PWA
-        </button>
-        <button
-          onClick={() => setActiveTab('teacher')}
-          style={{
-            background: activeTab === 'teacher' ? '#1A2540' : 'transparent',
-            color: activeTab === 'teacher' ? '#f2e9db' : '#1A2540',
-            border: '2px solid #1A2540',
-            borderRadius: '9999px',
-            padding: '8px 18px',
-            fontWeight: 600,
-            cursor: 'pointer'
-          }}
-        >
-          Teacher Dashboard
-        </button>
-        <button onClick={() => setActiveTab('quiz')} className="crimson-pill-btn">
-          ENROLL NOW
-        </button>
+      {/* Right side */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        {/* Unauthenticated: landing or auth page */}
+        {!currentUser && isLanding && (
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => navigate('/auth')}
+          >
+            Get Started →
+          </button>
+        )}
+
+        {/* Authenticated user */}
+        {currentUser && userProfile && (
+          <>
+            {/* Role badge */}
+            <span className={`badge ${userProfile.role === 'teacher' ? 'badge-sky' : 'badge-mint'}`}>
+              {userProfile.role === 'teacher' ? '🎓 Teacher' : '📚 Student'}
+            </span>
+
+            {/* Avatar */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              {currentUser.photoURL ? (
+                <img
+                  src={currentUser.photoURL}
+                  alt={userProfile.displayName}
+                  className="nav-avatar"
+                />
+              ) : (
+                <div className="nav-avatar-placeholder">{avatarInitial}</div>
+              )}
+              <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {userProfile.displayName?.split(' ')[0]}
+              </span>
+            </div>
+
+            {/* Sign out */}
+            <button
+              className="btn btn-ghost btn-sm"
+              onClick={handleSignOut}
+              disabled={signingOut}
+              style={{ gap: 6 }}
+            >
+              <LogOut size={14} />
+              {signingOut ? 'Signing out…' : 'Sign Out'}
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
-};
-
-export default Navbar;
+}
