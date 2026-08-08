@@ -1,20 +1,47 @@
-# 🎓 EduAI - Intelligent Adaptive Learning & Assessment Platform
+# 🎓 EduAI — Intelligent Adaptive Learning & Assessment Platform
 
-[![Live App](https://img.shields.io/badge/Live_App-Firebase_Hosting-blue.svg)](https://eduai-d168d.web.app)
-[![Firebase](https://img.shields.io/badge/Database-Firestore-orange.svg)](https://console.firebase.google.com/project/eduai-d168d)
-[![AI Provider](https://img.shields.io/badge/AI-Google_Gemini-4285F4.svg)](https://aistudio.google.com)
+<div align="center">
 
-**EduAI** is a real-time, AI-powered adaptive learning platform designed for teachers and students. It features Google Firebase Auth, Firestore real-time sync, Google Gemini 1.5 & 2.0 Flash models for AI tutoring & automated question generation, Google Meet integration, and detailed student analytics.
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-iem--hacks.vercel.app-brightgreen?style=for-the-badge)](https://iem-hacks.vercel.app/)
+[![Firebase Hosting](https://img.shields.io/badge/Firebase_Hosting-eduai--d168d.web.app-orange?style=for-the-badge&logo=firebase)](https://eduai-d168d.web.app)
+[![AI Provider](https://img.shields.io/badge/AI-Google_Gemini-4285F4?style=for-the-badge&logo=google)](https://aistudio.google.com)
+
+**A real-time, AI-powered adaptive learning platform connecting teachers and students.**
+
+[🌐 Open Live App →](https://iem-hacks.vercel.app/)
+
+</div>
 
 ---
 
-## 🏗️ Whole App Directory Structure
+## 📸 Product Screenshots
+
+### 🏠 Landing Page — Hero
+![Landing Page Hero](./screenshots/01-landing-hero.png)
+
+### 👨‍🏫 For Teachers — Features Overview
+![Teacher Features](./screenshots/02-teacher-features.png)
+
+### 👨‍🎓 For Students — AI-Powered Learning
+![Student Features](./screenshots/03-student-features.png)
+
+### 📊 Student Dashboard
+![Student Dashboard](./screenshots/04-student-dashboard.png)
+
+### 🏫 Teacher Dashboard — Class Management
+![Teacher Dashboard](./screenshots/05-teacher-dashboard.png)
+
+---
+
+## 🏗️ App Directory Structure
 
 ```
 iem_hacks/
 ├── README.md                          # Application documentation & pipeline architecture
+├── screenshots/                       # Product screenshots for README
 └── frontend/                          # Vite + React 18 Single Page Application
     ├── firebase.json                  # Firebase Hosting SPA routing & rewrite rules
+    ├── vercel.json                    # Vercel SPA routing configuration
     ├── firestore.rules                # Production Firestore Security Rules
     ├── firestore.indexes.json         # Firestore Composite Indexes
     ├── index.html                     # HTML5 entrypoint & Google Fonts (League Spartan)
@@ -34,7 +61,7 @@ iem_hacks/
         │   ├── EmptyState.jsx         # Component for empty classes/tests/attempts
         │   ├── AITutor.jsx            # Gemini AI explanation & practice quiz widget
         │   ├── CreateTestModal.jsx    # Teacher test creator with AI question generator
-        │   └── ConductClassModal.jsx # Teacher Google Meet instant room launcher
+        │   └── ConductClassModal.jsx  # Teacher Google Meet instant room launcher
         └── pages/
             ├── LandingPage.jsx        # Public product showcase landing page
             ├── AuthPage.jsx           # Google Sign-In & Role selection (Student/Teacher)
@@ -148,11 +175,11 @@ collections/
 2. Populate `frontend/.env` with your credentials:
    ```env
    VITE_FIREBASE_API_KEY="YOUR_FIREBASE_API_KEY"
-   VITE_FIREBASE_AUTH_DOMAIN="eduai-d168d.firebaseapp.com"
-   VITE_FIREBASE_PROJECT_ID="eduai-d168d"
-   VITE_FIREBASE_STORAGE_BUCKET="eduai-d168d.firebasestorage.app"
-   VITE_FIREBASE_MESSAGING_SENDER_ID="506743743156"
-   VITE_FIREBASE_APP_ID="1:506743743156:web:440788f645a8255f8f3f1b"
+   VITE_FIREBASE_AUTH_DOMAIN="YOUR_PROJECT.firebaseapp.com"
+   VITE_FIREBASE_PROJECT_ID="YOUR_PROJECT_ID"
+   VITE_FIREBASE_STORAGE_BUCKET="YOUR_PROJECT.firebasestorage.app"
+   VITE_FIREBASE_MESSAGING_SENDER_ID="YOUR_SENDER_ID"
+   VITE_FIREBASE_APP_ID="YOUR_APP_ID"
    VITE_GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
    ```
 
@@ -164,7 +191,13 @@ npm run dev
 ```
 Open `http://localhost:3000` in your browser.
 
-### 4. Deploying to Firebase Hosting
+### 4. Deploying to Vercel
+1. Import the repo at [vercel.com/new](https://vercel.com/new)
+2. Set **Root Directory** → `frontend`
+3. Add all `VITE_*` environment variables from your `.env`
+4. Deploy — your app is live at `https://your-app.vercel.app`
+
+### 5. Deploying to Firebase Hosting
 ```bash
 cd frontend
 npm run build
@@ -179,3 +212,9 @@ firebase deploy --only hosting,firestore
 - **Accent Color**: `#cc2b3f` (Crimson)
 - **Card Surface**: `#f2e9db` (Cream)
 - **Icons**: Lucide-React (`<Bot />`, `<GraduationCap />`, `<TrendingUp />`, etc.)
+
+---
+
+<div align="center">
+Made with ❤️ for IEM Hacks &nbsp;|&nbsp; <a href="https://iem-hacks.vercel.app/">iem-hacks.vercel.app</a>
+</div>
