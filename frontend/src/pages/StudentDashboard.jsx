@@ -358,7 +358,7 @@ export default function StudentDashboard() {
   ];
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 68px)', background: 'var(--navy)', padding: '32px 24px' }}>
+    <div style={{ minHeight: 'calc(100vh - 80px)', backgroundColor: '#f3c9d5', padding: '32px 24px' }}>
       <div style={{ maxWidth: 900, margin: '0 auto' }}>
 
         {/* Toast */}
@@ -366,13 +366,13 @@ export default function StudentDashboard() {
 
         {/* Header */}
         <div style={{ marginBottom: 32 }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#4ade80', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#cc2b3f', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
             📚 Student Dashboard
           </span>
-          <h1 style={{ fontSize: '2rem', color: '#fff', marginTop: 4 }}>
-            Hey, {userProfile?.displayName?.split(' ')[0] || 'Student'} 👋
+          <h1 style={{ fontSize: '2.2rem', color: '#1A2540', marginTop: 4, fontWeight: 900 }}>
+            HEY, {userProfile?.displayName?.split(' ')[0]?.toUpperCase() || 'STUDENT'} 👋
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.88rem', marginTop: 4 }}>
+          <p style={{ color: '#1A2540', opacity: 0.8, fontSize: '0.9rem', marginTop: 4 }}>
             {enrolledClass
               ? `📍 Enrolled in: ${enrolledClass.className}`
               : 'Join a class to access tests assigned by your teacher'}

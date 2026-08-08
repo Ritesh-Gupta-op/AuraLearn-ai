@@ -62,61 +62,55 @@ export default function AuthPage() {
 
   return (
     <div style={{
-      minHeight: 'calc(100vh - 68px)',
+      minHeight: 'calc(100vh - 80px)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '40px 20px',
-      background: 'var(--grad-hero)',
+      backgroundColor: '#f3c9d5',
     }}>
       <div style={{ width: '100%', maxWidth: 480 }}>
 
         {/* Header */}
-        <div style={{ textAlign: 'center', marginBottom: 40 }}>
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{
-            width: 64, height: 64,
-            borderRadius: 18,
-            background: 'var(--grad-crimson)',
+            width: 60, height: 60,
+            borderRadius: 16,
+            backgroundColor: '#cc2b3f',
+            color: '#f2e9db',
+            border: '2px dashed #1A2540',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 20px',
+            margin: '0 auto 16px',
             fontSize: 28,
-            boxShadow: 'var(--shadow-glow-crimson)',
           }}>
             🎓
           </div>
-          <h1 style={{ fontSize: '2rem', color: '#fff', marginBottom: 8 }}>Welcome to EduAI</h1>
-          <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.95rem' }}>
-            Sign in with Google to access your personalised dashboard
+          <h1 style={{ fontSize: '2.2rem', color: '#1A2540', marginBottom: 8, fontWeight: 900 }}>WELCOME TO EDUAI</h1>
+          <p style={{ color: '#1A2540', opacity: 0.8, fontSize: '0.95rem' }}>
+            Sign in with Google to access your personalized dashboard
           </p>
         </div>
 
         {/* Firebase not configured banner */}
         {!isFirebaseConfigured && (
-          <div className="setup-banner" style={{ marginBottom: 28 }}>
-            <AlertTriangle size={24} color="#fbbf24" style={{ flexShrink: 0 }} />
+          <div className="setup-banner" style={{ marginBottom: 24, backgroundColor: '#fef3c7', border: '2px solid #1A2540' }}>
+            <AlertTriangle size={24} color="#92400e" style={{ flexShrink: 0 }} />
             <div>
-              <p style={{ marginBottom: 4, fontWeight: 700 }}>Firebase not configured yet</p>
-              <p>
+              <p style={{ marginBottom: 4, fontWeight: 800, color: '#92400e' }}>Firebase not configured yet</p>
+              <p style={{ color: '#1A2540', fontSize: '0.85rem' }}>
                 Copy <code>frontend/.env.example</code> → <code>frontend/.env</code> and fill in your Firebase credentials.
-                The app will work fully once configured. <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style={{ color: '#fbbf24', textDecoration: 'underline' }}>Get Firebase config →</a>
               </p>
             </div>
           </div>
         )}
 
         {/* Card */}
-        <div style={{
-          background: 'rgba(255,255,255,0.04)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 24,
-          padding: '36px 32px',
-          backdropFilter: 'blur(12px)',
-        }}>
+        <div className="cream-sheet-card" style={{ padding: '36px 32px' }}>
 
           {/* Step 1: Role selector */}
           <div style={{ marginBottom: 28 }}>
             <p style={{
-              fontSize: '0.72rem', fontWeight: 700, color: 'rgba(255,255,255,0.4)',
+              fontSize: '0.75rem', fontWeight: 800, color: '#1A2540',
               textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12
             }}>
               Step 1 — I am a…
@@ -132,13 +126,13 @@ export default function AuthPage() {
                 id="role-teacher"
               >
                 <div className="role-icon teacher">🎓</div>
-                <div style={{ fontFamily: 'League Spartan', fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: 4 }}>Teacher</div>
-                <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.4 }}>
+                <div style={{ fontFamily: 'League Spartan', fontSize: '1.1rem', fontWeight: 800, color: '#1A2540', marginBottom: 4 }}>Teacher</div>
+                <p style={{ fontSize: '0.78rem', color: '#1A2540', opacity: 0.8, lineHeight: 1.4 }}>
                   Create tests, track students, conduct classes
                 </p>
                 {selectedRole === 'teacher' && (
                   <div style={{ marginTop: 12 }}>
-                    <span className="badge badge-sky">✓ Selected</span>
+                    <span className="badge badge-navy">✓ Selected</span>
                   </div>
                 )}
               </div>
@@ -152,13 +146,13 @@ export default function AuthPage() {
                 id="role-student"
               >
                 <div className="role-icon student">📚</div>
-                <div style={{ fontFamily: 'League Spartan', fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: 4 }}>Student</div>
-                <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.4 }}>
+                <div style={{ fontFamily: 'League Spartan', fontSize: '1.1rem', fontWeight: 800, color: '#1A2540', marginBottom: 4 }}>Student</div>
+                <p style={{ fontSize: '0.78rem', color: '#1A2540', opacity: 0.8, lineHeight: 1.4 }}>
                   Take tests, use AI tutor, track progress
                 </p>
                 {selectedRole === 'student' && (
                   <div style={{ marginTop: 12 }}>
-                    <span className="badge badge-mint">✓ Selected</span>
+                    <span className="badge badge-navy">✓ Selected</span>
                   </div>
                 )}
               </div>

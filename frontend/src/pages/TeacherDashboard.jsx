@@ -211,7 +211,7 @@ export default function TeacherDashboard() {
   ];
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 68px)', background: 'var(--navy)', padding: '32px 24px' }}>
+    <div style={{ minHeight: 'calc(100vh - 80px)', backgroundColor: '#f3c9d5', padding: '32px 24px' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
 
         {/* Toast */}
@@ -220,13 +220,13 @@ export default function TeacherDashboard() {
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 32, flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--crimson)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#cc2b3f', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               🎓 Teacher Dashboard
             </span>
-            <h1 style={{ fontSize: '2rem', color: '#fff', marginTop: 4 }}>
-              Welcome, {userProfile?.displayName?.split(' ')[0] || 'Teacher'} 👋
+            <h1 style={{ fontSize: '2.2rem', color: '#1A2540', marginTop: 4, fontWeight: 900 }}>
+              WELCOME, {userProfile?.displayName?.split(' ')[0]?.toUpperCase() || 'TEACHER'} 👋
             </h1>
-            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.88rem', marginTop: 4 }}>
+            <p style={{ color: '#1A2540', opacity: 0.8, fontSize: '0.9rem', marginTop: 4 }}>
               Manage your classes, create tests, and monitor student progress
             </p>
           </div>
