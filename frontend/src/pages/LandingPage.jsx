@@ -239,7 +239,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer style={{ padding: '32px 0', textAlign: 'center', color: '#1A2540', opacity: 0.7, fontSize: '0.85rem' }}>
-        © 2026 EduAI Platform • Built with ❤️ + Google Gemini AI
+        © 2026 AuraLearn AI • Built with ❤️ + Google Gemini AI
       </footer>
     </div>
   );

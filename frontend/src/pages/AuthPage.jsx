@@ -85,7 +85,7 @@ export default function AuthPage() {
           }}>
             🎓
           </div>
-          <h1 style={{ fontSize: '2.2rem', color: '#1A2540', marginBottom: 8, fontWeight: 900 }}>WELCOME TO EDUAI</h1>
+          <h1 style={{ fontSize: '2.2rem', color: '#1A2540', marginBottom: 8, fontWeight: 900 }}>WELCOME TO AURALEARN AI</h1>
           <p style={{ color: '#1A2540', opacity: 0.8, fontSize: '0.95rem' }}>
             Sign in with Google to access your personalized dashboard
           </p>

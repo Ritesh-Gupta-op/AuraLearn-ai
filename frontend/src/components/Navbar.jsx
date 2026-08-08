@@ -32,7 +32,7 @@ export default function Navbar() {
       {/* Logo */}
       <div className="nav-logo" onClick={() => navigate('/')}>
         <div className="nav-logo-mark">E</div>
-        <span className="nav-logo-text">EduAI</span>
+        <span className="nav-logo-text">AuraLearn AI</span>
       </div>
 
       {/* Right side */}

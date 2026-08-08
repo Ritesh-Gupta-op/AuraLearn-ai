@@ -1,4 +1,4 @@
-# 🎓 EduAI — Intelligent Adaptive Learning & Assessment Platform
+# 🎓 AuraLearn AI — Intelligent Adaptive Learning & Assessment Platform
 
 <div align="center">
 
@@ -6,7 +6,7 @@
 [![Firebase Hosting](https://img.shields.io/badge/Firebase_Hosting-eduai--d168d.web.app-orange?style=for-the-badge&logo=firebase)](https://eduai-d168d.web.app)
 [![AI Provider](https://img.shields.io/badge/AI-Google_Gemini-4285F4?style=for-the-badge&logo=google)](https://aistudio.google.com)
 
-**A real-time, AI-powered adaptive learning platform connecting teachers and students.**
+**AuraLearn AI** is a real-time, AI-powered adaptive learning platform designed for teachers and students. It features Google Firebase Auth, Firestore real-time sync, Google Gemini 1.5 & 2.0 Flash models for AI tutoring & automated question generation, Google Meet integration, and detailed student analytics.
 
 [🌐 Open Live App →](https://iem-hacks.vercel.app/)
 
@@ -216,5 +216,5 @@ firebase deploy --only hosting,firestore
 ---
 
 <div align="center">
-Made with ❤️ for IEM Hacks &nbsp;|&nbsp; <a href="https://iem-hacks.vercel.app/">iem-hacks.vercel.app</a>
+Made with ❤️ for IEM Hacks &nbsp;|&nbsp; <a href="https://iem-hacks.vercel.app/">iem-hacks.vercel.app</a> &nbsp;|&nbsp; AuraLearn AI
 </div>
