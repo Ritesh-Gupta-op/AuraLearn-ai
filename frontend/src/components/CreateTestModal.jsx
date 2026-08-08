@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { X, Plus, Trash2, Sparkles, Loader, AlertTriangle } from 'lucide-react';
 
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
 async function geminiSuggestQuestion(subject, existingQuestions) {
-  if (!GEMINI_API_KEY) throw new Error('GEMINI_API_KEY not set');
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) throw new Error('GEMINI_API_KEY not set');
 
   const context = existingQuestions.length > 0
     ? `Already added questions:\n${existingQuestions.map((q, i) => `${i + 1}. ${q.text}`).join('\n')}\n\nNow generate one more unique question.`
@@ -24,7 +23,7 @@ Return ONLY valid JSON (no markdown, no explanation) in this exact format:
 The difficulty should be "easy", "medium", or "hard".`;
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

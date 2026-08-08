@@ -1,0 +1,36 @@
+mutation CreateSeedData @transaction {
+  user_insertMany(data: [
+    { name: "Alice Smith", email: "alice@example.com", role: "Instructor" },
+    { name: "Bob Jones", email: "bob@example.com", role: "Student" },
+    { name: "Charlie Brown", email: "charlie@example.com", role: "Student" },
+    { name: "Diana Prince", email: "diana@example.com", role: "Instructor" }
+  ])
+  
+  course_insertMany(data: [
+    { title: "Intro to GraphQL", description: "Learn the basics of GraphQL", instructor: { id: "00000000-0000-0000-0000-000000000001" } },
+    { title: "Advanced FDC", description: "Deep dive into Firebase Data Connect", instructor: { id: "00000000-0000-0000-0000-000000000004" } },
+    { title: "Database Design", description: "Fundamentals of relational design", instructor: { id: "00000000-0000-0000-0000-000000000001" } }
+  ])
+
+  enrollment_insertMany(data: [
+    { student: { id: "00000000-0000-0000-0000-000000000002" }, course: { id: "00000000-0000-0000-0000-000000000001" }, enrollmentDate: "2023-09-01" },
+    { student: { id: "00000000-0000-0000-0000-000000000003" }, course: { id: "00000000-0000-0000-0000-000000000001" }, enrollmentDate: "2023-09-01" },
+    { student: { id: "00000000-0000-0000-0000-000000000002" }, course: { id: "00000000-0000-0000-0000-000000000002" }, enrollmentDate: "2023-09-15" }
+  ])
+
+  assignment_insertMany(data: [
+    { title: "Homework 1", dueDate: "2023-10-01T23:59:59Z", course: { id: "00000000-0000-0000-0000-000000000001" }, maxPoints: 100 },
+    { title: "Project Alpha", dueDate: "2023-11-01T23:59:59Z", course: { id: "00000000-0000-0000-0000-000000000001" }, maxPoints: 500 },
+    { title: "Database Quiz", dueDate: "2023-10-15T12:00:00Z", course: { id: "00000000-0000-0000-0000-000000000003" }, maxPoints: 50 }
+  ])
+
+  submission_insertMany(data: [
+    { assignment: { id: "00000000-0000-0000-0000-000000000001" }, student: { id: "00000000-0000-0000-0000-000000000002" }, submissionUrl: "http://example.com/hw1", grade: 95 },
+    { assignment: { id: "00000000-0000-0000-0000-000000000001" }, student: { id: "00000000-0000-0000-0000-000000000003" }, submissionUrl: "http://example.com/hw1_b", grade: 88 }
+  ])
+
+  discussionPost_insertMany(data: [
+    { content: "Welcome to the course!", course: { id: "00000000-0000-0000-0000-000000000001" }, user: { id: "00000000-0000-0000-0000-000000000001" } },
+    { content: "Does anyone know when the quiz is?", course: { id: "00000000-0000-0000-0000-000000000003" }, user: { id: "00000000-0000-0000-0000-000000000002" } }
+  ])
+}

@@ -3,3 +3,7 @@ node_modules/
 dist/
 build/
 .env
+.env.local
+.env.*.local
+frontend/.env
+frontend/.env.local

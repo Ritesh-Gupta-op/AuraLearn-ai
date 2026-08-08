@@ -39,13 +39,13 @@ export default function AuthPage() {
       const user = await signInWithGoogle(selectedRole);
       // navigation happens via useEffect above once profile is set
     } catch (err) {
-      console.error(err);
+      console.error('Sign-in error detail:', err);
       if (err.code === 'auth/popup-closed-by-user') {
         setError('Sign-in was cancelled. Please try again.');
       } else if (err.message?.includes('not configured')) {
         setError(err.message);
       } else {
-        setError('Sign-in failed. Please check your internet connection and try again.');
+        setError(`Sign-in error (${err.code || 'unknown'}): ${err.message || 'Please try again.'}`);
       }
     } finally {
       setSigningIn(false);

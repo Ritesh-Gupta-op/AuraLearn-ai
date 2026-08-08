@@ -1,0 +1,179 @@
+mutation CreateUserData @transaction @auth(level: USER) {
+  user_insert(data: {
+    id_expr: "auth.uid",
+    name: "New User",
+    email: "user@example.com",
+    role: "student"
+  })
+}
+
+mutation DeleteUser @auth(level: USER) {
+  user_delete(key: {id_expr: "auth.uid"})
+}
+
+mutation UpdateUser($name: String!) @auth(level: USER) {
+  user_update(key: {id_expr: "auth.uid"}, data: {name: $name})
+}
+
+query GetCurrentUser @auth(level: USER) {
+  user(key: {id_expr: "auth.uid"}) {
+    name
+    email
+    role
+  }
+}
+
+query ListAllUsers @auth(level: PUBLIC, insecureReason: "Public directory of users") {
+  users {
+    name
+    role
+  }
+}
+
+mutation CreateCourse($title: String!, $description: String!) @auth(level: USER) {
+  course_insert(data: {
+    title: $title,
+    description: $description,
+    instructorId_expr: "auth.uid"
+  })
+}
+
+mutation DeleteCourse($id: UUID!) @auth(level: USER) {
+  course_delete(id: $id)
+}
+
+mutation UpdateCourse($id: UUID!, $title: String) @auth(level: USER) {
+  course_update(id: $id, data: {title: $title})
+}
+
+query GetCourse($id: UUID!) @auth(level: PUBLIC, insecureReason: "Course info is public") {
+  course(id: $id) {
+    title
+    description
+  }
+}
+
+query ListCourses @auth(level: PUBLIC, insecureReason: "Public catalog") {
+  courses {
+    title
+  }
+}
+
+mutation Enroll($courseId: UUID!) @auth(level: USER) {
+  enrollment_insert(data: {
+    courseId: $courseId,
+    studentId_expr: "auth.uid",
+    enrollmentDate: "2023-10-27"
+  })
+}
+
+mutation DropCourse($id: UUID!) @auth(level: USER) {
+  enrollment_delete(id: $id)
+}
+
+mutation UpdateEnrollment($id: UUID!, $date: Date!) @auth(level: USER) {
+  enrollment_update(id: $id, data: {enrollmentDate: $date})
+}
+
+query GetEnrollment($id: UUID!) @auth(level: USER) {
+  enrollment(id: $id) {
+    course { title }
+    enrollmentDate
+  }
+}
+
+query ListMyEnrollments @auth(level: USER) {
+  enrollments(where: {studentId: {eq_expr: "auth.uid"}}) {
+    course { title }
+  }
+}
+
+mutation CreateAssignment($courseId: UUID!, $title: String!, $dueDate: Timestamp!) @auth(level: USER) {
+  assignment_insert(data: {
+    courseId: $courseId,
+    title: $title,
+    dueDate: $dueDate
+  })
+}
+
+mutation DeleteAssignment($id: UUID!) @auth(level: USER) {
+  assignment_delete(id: $id)
+}
+
+mutation UpdateAssignment($id: UUID!, $maxPoints: Int) @auth(level: USER) {
+  assignment_update(id: $id, data: {maxPoints: $maxPoints})
+}
+
+query GetAssignment($id: UUID!) @auth(level: USER) {
+  assignment(id: $id) {
+    title
+    dueDate
+  }
+}
+
+query ListAssignments($courseId: UUID!) @auth(level: USER) {
+  assignments(where: {courseId: {eq: $courseId}}) {
+    title
+  }
+}
+
+mutation SubmitAssignment($assignmentId: UUID!, $url: String!) @auth(level: USER) {
+  submission_insert(data: {
+    assignmentId: $assignmentId,
+    studentId_expr: "auth.uid",
+    submissionUrl: $url
+  })
+}
+
+mutation DeleteSubmission($id: UUID!) @auth(level: USER) {
+  submission_delete(id: $id)
+}
+
+mutation UpdateGrade($id: UUID!, $grade: Int) @auth(level: USER) {
+  submission_update(id: $id, data: {grade: $grade})
+}
+
+query GetSubmission($id: UUID!) @auth(level: USER) {
+  submission(id: $id) {
+    submissionUrl
+    grade
+    instructorFeedback
+  }
+}
+
+query ListMySubmissions @auth(level: USER) {
+  submissions(where: {studentId: {eq_expr: "auth.uid"}}) {
+    assignment { title }
+    grade
+  }
+}
+
+mutation PostDiscussion($courseId: UUID!, $content: String!) @auth(level: USER) {
+  discussionPost_insert(data: {
+    courseId: $courseId,
+    userId_expr: "auth.uid",
+    content: $content
+  })
+}
+
+mutation DeletePost($id: UUID!) @auth(level: USER) {
+  discussionPost_delete(id: $id)
+}
+
+mutation UpdatePost($id: UUID!, $content: String!) @auth(level: USER) {
+  discussionPost_update(id: $id, data: {content: $content})
+}
+
+query GetPost($id: UUID!) @auth(level: PUBLIC, insecureReason: "Discussion posts are public") {
+  discussionPost(id: $id) {
+    content
+    user { name }
+  }
+}
+
+query ListCoursePosts($courseId: UUID!) @auth(level: PUBLIC, insecureReason: "Discussion boards are public") {
+  discussionPosts(where: {courseId: {eq: $courseId}}) {
+    content
+    timestamp
+  }
+}

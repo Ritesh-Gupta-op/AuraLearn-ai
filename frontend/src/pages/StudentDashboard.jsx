@@ -7,7 +7,7 @@ import { db, isFirebaseConfigured } from '../firebase';
 import { useAuth } from '../context/AuthContext';
 import EmptyState from '../components/EmptyState';
 import AITutor from '../components/AITutor';
-import { AlertTriangle, CheckCircle2, XCircle, ArrowRight, RefreshCw } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, XCircle, ArrowRight, RefreshCw, ClipboardList, Bot, TrendingUp, GraduationCap, CheckCircle, Target } from 'lucide-react';
 
 // ── Helper: Toast ─────────────────────────────────────────────────────────────
 function useToast() {
@@ -352,9 +352,9 @@ export default function StudentDashboard() {
   const completedTests = tests.filter(t => attemptedTestIds.has(t.id));
 
   const TABS = [
-    { id: 'tests',   label: 'My Tests',  icon: '📋' },
-    { id: 'tutor',   label: 'AI Tutor',  icon: '🤖' },
-    { id: 'progress',label: 'Progress',  icon: '📈' },
+    { id: 'tests',   label: 'My Tests',  icon: <ClipboardList size={18} /> },
+    { id: 'tutor',   label: 'AI Tutor',  icon: <Bot size={18} /> },
+    { id: 'progress',label: 'Progress',  icon: <TrendingUp size={18} /> },
   ];
 
   return (
@@ -366,8 +366,8 @@ export default function StudentDashboard() {
 
         {/* Header */}
         <div style={{ marginBottom: 32 }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#cc2b3f', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-            📚 Student Dashboard
+          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#cc2b3f', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <GraduationCap size={16} /> Student Dashboard
           </span>
           <h1 style={{ fontSize: '2.2rem', color: '#1A2540', marginTop: 4, fontWeight: 900 }}>
             HEY, {userProfile?.displayName?.split(' ')[0]?.toUpperCase() || 'STUDENT'} 👋
@@ -393,9 +393,9 @@ export default function StudentDashboard() {
         {/* KPIs */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14, marginBottom: 28 }}>
           {[
-            { label: 'Tests Completed', val: myAttempts.length, color: '#7dd3fc', icon: '✅' },
-            { label: 'Average Score',   val: myAttempts.length > 0 ? `${avgPct}%` : '—', color: avgPct >= 70 ? '#4ade80' : avgPct >= 50 ? '#fbbf24' : '#f87171', icon: '🎯' },
-            { label: 'Pending Tests',   val: pendingTests.length, color: '#fbbf24', icon: '📋' },
+            { label: 'Tests Completed', val: myAttempts.length, color: '#7dd3fc', icon: <CheckCircle size={20} color="#0284c7" /> },
+            { label: 'Average Score',   val: myAttempts.length > 0 ? `${avgPct}%` : '—', color: avgPct >= 70 ? '#4ade80' : avgPct >= 50 ? '#fbbf24' : '#f87171', icon: <Target size={20} color="#16a34a" /> },
+            { label: 'Pending Tests',   val: pendingTests.length, color: '#fbbf24', icon: <ClipboardList size={20} color="#d97706" /> },
           ].map((k, i) => (
             <div key={i} className="kpi-card">
               <div className="kpi-label">{k.label}</div>

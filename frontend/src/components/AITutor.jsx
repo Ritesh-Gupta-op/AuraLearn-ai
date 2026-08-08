@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
-import { Send, Sparkles, AlertTriangle, RefreshCw, BookOpen } from 'lucide-react';
-
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+import { Send, Sparkles, AlertTriangle, RefreshCw, BookOpen, Bot } from 'lucide-react';
 
 async function callGemini(prompt) {
-  if (!GEMINI_API_KEY) throw new Error('API_KEY_MISSING');
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+  if (!apiKey) throw new Error('API_KEY_MISSING');
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
-      }),
+  // Try gemini-1.5-flash first, fallback to gemini-2.0-flash
+  const models = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-pro'];
+  let lastErr = null;
+
+  for (const model of models) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+          }),
+        }
+      );
+      if (res.ok) {
+        const data = await res.json();
+        return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+      }
+      const errData = await res.json().catch(() => ({}));
+      lastErr = errData.error?.message || `HTTP ${res.status}`;
+    } catch (e) {
+      lastErr = e.message;
     }
-  );
-  if (!res.ok) throw new Error(`Gemini API error ${res.status}`);
-  const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  }
+
+  throw new Error(`Gemini API error: ${lastErr}`);
 }
 
 async function generateExplanation(topic) {
@@ -73,10 +86,11 @@ export default function AITutor() {
       const text = await generateExplanation(trimmed);
       setExplanation(text);
     } catch (e) {
+      console.error('Gemini explanation error:', e);
       if (e.message === 'API_KEY_MISSING') {
         setExpError('Gemini API key not configured. Please add VITE_GEMINI_API_KEY to frontend/.env');
       } else {
-        setExpError('Failed to get explanation. Check your internet connection.');
+        setExpError(e.message || 'Failed to get explanation.');
       }
     } finally {
       setExpLoading(false);
@@ -124,12 +138,14 @@ export default function AITutor() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
         <div style={{
           width: 48, height: 48, borderRadius: 14,
-          background: 'rgba(56,189,248,0.12)', border: '1px solid rgba(56,189,248,0.2)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22
-        }}>🤖</div>
+          background: 'rgba(26,37,64,0.08)', border: '1px solid rgba(26,37,64,0.15)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#1A2540'
+        }}>
+          <Bot size={26} />
+        </div>
         <div>
-          <h2 style={{ fontSize: '1.3rem', color: '#fff' }}>AI Tutor</h2>
-          <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.4)' }}>
+          <h2 style={{ fontSize: '1.4rem', color: '#1A2540', fontWeight: 900 }}>AI Tutor</h2>
+          <p style={{ fontSize: '0.85rem', color: '#1A2540', opacity: 0.7 }}>
             Search any topic to learn & practice • Powered by Google Gemini
           </p>
         </div>
