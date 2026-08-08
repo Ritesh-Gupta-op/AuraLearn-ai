@@ -188,15 +188,15 @@ export default function AITutor() {
       {expLoading && (
         <div style={{ textAlign: 'center', padding: '40px 0' }}>
           <div className="spinner" style={{ marginBottom: 16 }} />
-          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.88rem' }}>Generating explanation for "{inputValue}"…</p>
+          <p style={{ color: '#1A2540', opacity: 0.7, fontSize: '0.88rem' }}>Generating explanation for "{inputValue}"…</p>
         </div>
       )}
 
       {expError && (
         <div style={{
-          background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)',
+          background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
           borderRadius: 16, padding: 20, display: 'flex', gap: 12, marginBottom: 20,
-          color: '#f87171', fontSize: '0.88rem', alignItems: 'flex-start'
+          color: '#cc2b3f', fontSize: '0.88rem', alignItems: 'flex-start', fontWeight: 600
         }}>
           <AlertTriangle size={18} style={{ flexShrink: 0, marginTop: 2 }} />
           <span>{expError}</span>
@@ -206,28 +206,23 @@ export default function AITutor() {
       {explanation && !expLoading && (
         <div style={{ marginBottom: 28 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-            <BookOpen size={16} style={{ color: '#7dd3fc' }} />
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#7dd3fc', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <BookOpen size={16} style={{ color: '#cc2b3f' }} />
+            <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#cc2b3f', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Explanation: {topic}
             </span>
           </div>
-          <div className="ai-bubble assistant">
+          <div className="card" style={{ padding: 20, lineHeight: 1.6, color: '#1A2540', fontSize: '0.95rem' }}>
             {explanation}
           </div>
 
           {/* Practice section */}
-          <div style={{
-            marginTop: 20,
-            background: 'rgba(255,255,255,0.03)',
-            border: '1px solid rgba(255,255,255,0.07)',
-            borderRadius: 20, padding: 24
-          }}>
+          <div className="card" style={{ marginTop: 20, padding: 24 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
               <div>
-                <p style={{ fontFamily: 'League Spartan', fontSize: '1rem', color: '#fff', fontWeight: 800 }}>
+                <p style={{ fontFamily: 'League Spartan', fontSize: '1.1rem', color: '#1A2540', fontWeight: 800 }}>
                   Practice Problems
                 </p>
-                <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)' }}>
+                <p style={{ fontSize: '0.82rem', color: '#1A2540', opacity: 0.7 }}>
                   Choose difficulty and generate a question
                 </p>
               </div>
@@ -257,13 +252,13 @@ export default function AITutor() {
             </button>
 
             {qError && (
-              <p style={{ color: '#f87171', fontSize: '0.82rem', marginTop: 8 }}>{qError}</p>
+              <p style={{ color: '#cc2b3f', fontSize: '0.85rem', marginTop: 8, fontWeight: 600 }}>{qError}</p>
             )}
 
             {/* Question display */}
             {question && !qLoading && (
               <div>
-                <p style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 600, lineHeight: 1.5, marginBottom: 16 }}>
+                <p style={{ fontSize: '1rem', color: '#1A2540', fontWeight: 700, lineHeight: 1.5, marginBottom: 16 }}>
                   {question.question}
                 </p>
 
