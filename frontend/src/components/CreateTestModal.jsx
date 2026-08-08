@@ -3,7 +3,7 @@ import { X, Plus, Trash2, Sparkles, Loader, AlertTriangle } from 'lucide-react';
 
 async function geminiSuggestQuestion(subject, existingQuestions) {
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-  if (!apiKey) throw new Error('GEMINI_API_KEY not set');
+  if (!apiKey) throw new Error('GEMINI_API_KEY_MISSING');
 
   const context = existingQuestions.length > 0
     ? `Already added questions:\n${existingQuestions.map((q, i) => `${i + 1}. ${q.text}`).join('\n')}\n\nNow generate one more unique question.`
@@ -22,25 +22,38 @@ Return ONLY valid JSON (no markdown, no explanation) in this exact format:
 
 The difficulty should be "easy", "medium", or "hard".`;
 
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
-      }),
+  const models = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-pro'];
+  let lastErr = null;
+
+  for (const model of models) {
+    try {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
+          }),
+        }
+      );
+
+      if (res.ok) {
+        const data = await res.json();
+        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        return JSON.parse(cleaned);
+      }
+
+      const errData = await res.json().catch(() => ({}));
+      lastErr = errData.error?.message || `HTTP ${res.status}`;
+    } catch (e) {
+      lastErr = e.message;
     }
-  );
+  }
 
-  if (!res.ok) throw new Error(`Gemini API error: ${res.status}`);
-  const data = await res.json();
-  const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-  // Strip markdown code blocks if present
-  const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-  return JSON.parse(cleaned);
+  throw new Error(lastErr || 'AI request failed');
 }
 
 export default function CreateTestModal({ onClose, onSave, classId }) {
@@ -70,11 +83,11 @@ export default function CreateTestModal({ onClose, onSave, classId }) {
         difficulty: suggested.difficulty || 'medium',
       }]);
     } catch (e) {
-      console.error(e);
-      if (e.message.includes('GEMINI_API_KEY')) {
+      console.error('AI question generation error:', e);
+      if (e.message === 'GEMINI_API_KEY_MISSING') {
         setAiError('Gemini API key not configured. Add VITE_GEMINI_API_KEY to your .env file.');
       } else {
-        setAiError('AI suggestion failed. Please try again or add a question manually.');
+        setAiError(`AI error: ${e.message || 'Failed to generate question.'}`);
       }
     } finally {
       setAiLoading(false);
