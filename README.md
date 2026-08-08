@@ -1,4 +1,4 @@
-# 🎓 EduAI — Intelligent Adaptive Learning & Assessment Platform
+# 🎓 AuraLearn AI — Intelligent Adaptive Learning & Assessment Platform
 
 <div align="center">
 
