@@ -14,6 +14,18 @@
 
 ---
 
+## 🎬 Demo Video
+
+<div align="center">
+
+[![Watch the Demo](https://img.youtube.com/vi/3LUOnh70Uc8/maxresdefault.jpg)](https://youtu.be/3LUOnh70Uc8)
+
+**▶️ [Watch Full Demo on YouTube →](https://youtu.be/3LUOnh70Uc8)**
+
+</div>
+
+---
+
 ## 📸 Product Screenshots
 
 ### 🏠 Landing Page — Hero
